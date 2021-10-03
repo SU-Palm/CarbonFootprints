@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="loginFontSize">40sp</dimen>
+    <dimen name="subloginFontSize">14sp</dimen>
+</resources>

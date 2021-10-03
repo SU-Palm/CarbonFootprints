@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">CarbonFootprints</string>
+    <string name="title">Carbon Footprints</string>
+    <string name="excited">Excited?!</string>
+    <string name="you_should_be">You should be!!</string>
+    <string name="log_in">Log-in</string>
+    <string name="login_google">Login using your google account.</string>
+    <string name="or_sign_up_if_you_are_new">Or sign up if you are new !</string>
+    <string name="sign_up">Sign Up</string>
 </resources>
