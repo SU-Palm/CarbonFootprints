@@ -56,7 +56,7 @@
 
     <Button
         style="@style/Widget.MaterialComponents.Button.Icon"
-        android:id="@+id/button1"
+        android:id="@+id/loginButton"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/white"
         android:layout_width="300dp"
@@ -76,7 +76,7 @@
 
     <Button
         style="@style/Widget.MaterialComponents.Button.Icon"
-        android:id="@+id/button2"
+        android:id="@+id/signUpButton"
         android:background="@drawable/rounded_corners"
         android:backgroundTint="@color/white"
         android:layout_width="300dp"

@@ -9,6 +9,6 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background_green">#296F29</color>
     <color name="tinyFontColor">#707070</color>
-    <color name="buttonColor">#1D2226</color>
+    <color name="buttonColor">#FFFFFFFF</color>
     <color name="green_dark">#003300</color>
 </resources>
