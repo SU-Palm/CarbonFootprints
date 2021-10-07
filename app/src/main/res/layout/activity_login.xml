@@ -85,6 +85,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
             <TextView
@@ -97,9 +99,9 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/loginButtonG"
                 android:layout_width="147dp"
-                android:layout_height="43dp"
+                android:layout_height="48dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="5dp"
                 android:background="@drawable/rounded_corners"
@@ -128,14 +130,6 @@
             android:layout_marginTop="30dp"
             app:srcCompat="@drawable/circles" />
 
-        <TextView
-            android:id="@+id/signUpBottomRight"
-            style="@style/loginFont"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sign_up"
-            android:layout_marginTop="25sp"
-            android:layout_marginStart="80dp"/>
     </LinearLayout>
 
 </LinearLayout>
