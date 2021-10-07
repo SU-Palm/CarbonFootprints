@@ -59,7 +59,7 @@
                 android:orientation="vertical">
 
                 <EditText
-                    android:id="@+id/editTextTextEmailAddress2"
+                    android:id="@+id/signUpEmail"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:ems="10"
@@ -67,7 +67,7 @@
                     android:inputType="textEmailAddress" />
 
                 <EditText
-                    android:id="@+id/editTextTextPassword"
+                    android:id="@+id/signUpPswd"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:ems="10"
