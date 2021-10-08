@@ -48,8 +48,7 @@ public class MainActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
     private void skipToHome() {
-        //REPLACE WITH DASHBOARD CLASS
-        Intent intent = new Intent(this, Signup.class);
+        Intent intent = new Intent(this, Dashboard.class);
         this.startActivity(intent);
     }
 }

@@ -62,8 +62,7 @@ public class Login extends AppCompatActivity {
                 });
     }
     private void login() {
-        //SWITCH TO DASHBOARD when dashboard is created
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Dashboard.class);
         startActivity(intent);
 
     }
