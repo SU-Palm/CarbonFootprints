@@ -60,8 +60,7 @@ public final class Signup extends AppCompatActivity {
     }
 
     private void signUp() {
-        //SWITCH TO DASHBOARD when dashboard is created
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, Dashboard.class);
         this.startActivity(intent);
     }
 }
