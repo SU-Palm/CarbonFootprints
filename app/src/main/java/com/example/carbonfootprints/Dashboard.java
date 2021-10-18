@@ -15,9 +15,9 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_dashboard);
-        Button signOutButton = findViewById(R.id.signOutButton);
-        mAuth = FirebaseAuth.getInstance();
-        signOutButton.setOnClickListener(v -> logOut());
+        //Button signOutButton = findViewById(R.id.signOutButton);
+        //mAuth = FirebaseAuth.getInstance();
+        //signOutButton.setOnClickListener(v -> logOut());
 
     }
     private void logOut() {
