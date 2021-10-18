@@ -12,6 +12,11 @@
             android:icon="@drawable/icon_1"
             android:title="Maps"/>
         <item
+            android:id="@+id/page_4"
+            android:enabled="true"
+            android:icon="@drawable/icon_5"
+            android:title="Maps"/>
+        <item
             android:id="@+id/page_3"
             android:enabled="true"
             android:icon="@drawable/icon_3"
