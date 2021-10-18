@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,12 +35,13 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         Button loginButton = findViewById(R.id.loginButtonG);
+        TextView resetButton = findViewById(R.id.resetPswdTxt);
         userEmail = findViewById(R.id.loginEmailText);
         userPswd = findViewById(R.id.loginPswdText);
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         loginButton.setOnClickListener(v -> signInToFirebase(userEmail.getText().toString(), userPswd.getText().toString()));
-
+        resetButton.setOnClickListener(v -> resetScreen());
     }
 
     private void signInToFirebase(String email, String password){
@@ -63,6 +65,11 @@ public class Login extends AppCompatActivity {
     }
     private void login() {
         Intent intent = new Intent(this, Dashboard.class);
+        startActivity(intent);
+
+    }
+    private void resetScreen() {
+        Intent intent = new Intent(this, ResetPassword.class);
         startActivity(intent);
 
     }

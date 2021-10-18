@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".Dashboard"
     android:background="@color/background_green"
-    android:theme="@style/Theme.LoginPage"
     android:statusBarColor="@color/green_dark">
+
 
     <TextView
         android:id="@+id/textView"
