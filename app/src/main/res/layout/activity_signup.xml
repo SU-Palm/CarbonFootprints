@@ -29,7 +29,7 @@
             android:layout_width="58dp"
             android:layout_height="57dp"
             app:srcCompat="@drawable/circles"
-            android:layout_marginStart="65sp"
+            android:layout_marginStart="95sp"
             android:layout_marginTop="50sp"/>
 
         <ImageView
@@ -63,16 +63,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
                     android:ems="10"
+                    android:fontFamily="@font/quicksand_bold"
                     android:hint="Email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textSize="25sp"/>
 
                 <EditText
                     android:id="@+id/signUpPswd"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:fontFamily="@font/quicksand_bold"
                     android:ems="10"
                     android:hint="Password"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:textSize="25sp" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
@@ -112,8 +116,6 @@
             android:layout_height="57dp"
             android:layout_marginTop="30dp"
             app:srcCompat="@drawable/circles" />
-
     </LinearLayout>
-
 
 </LinearLayout>

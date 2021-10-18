@@ -8,7 +8,8 @@
     tools:context=".Login"
     android:theme="@style/Theme.LoginPage"
     android:background="@color/background_green"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <LinearLayout
         android:layout_height="wrap_content"
@@ -29,7 +30,7 @@
             android:layout_width="58dp"
             android:layout_height="57dp"
             app:srcCompat="@drawable/circles"
-            android:layout_marginStart="80sp"
+            android:layout_marginStart="120sp"
             android:layout_marginTop="50sp"/>
 
         <ImageView
@@ -60,15 +61,21 @@
                 <EditText
                     android:id="@+id/loginEmailText"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="82dp"
                     android:ems="10"
+                    android:fontFamily="@font/quicksand_bold"
                     android:hint="Email"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/off_white"
+                    android:textSize="25sp" />
 
                 <EditText
                     android:id="@+id/loginPswdText"
                     android:layout_width="match_parent"
                     android:layout_height="80dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textColor="@color/off_white"
+                    android:textSize="25sp"
                     android:ems="10"
                     android:hint="Password"
                     android:inputType="textPassword" />

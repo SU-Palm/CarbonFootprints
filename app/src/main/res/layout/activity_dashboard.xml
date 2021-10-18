@@ -4,8 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F6F4F4"
-    tools:context=".Dashboard">
+    tools:context=".Dashboard"
+    android:background="@color/background_green"
+    android:theme="@style/Theme.LoginPage"
+    android:statusBarColor="@color/green_dark">
 
     <TextView
         android:id="@+id/textView"
@@ -18,7 +20,7 @@
         android:fontFamily="@font/quicksand"
         android:text="Hello, User!"
         android:textAlignment="viewStart"
-        android:textColor="@android:color/holo_green_dark"
+        android:textColor="@android:color/white"
         android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,7 +28,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.192" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/welcomeText"
@@ -412,9 +414,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView8"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.448"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView14"
-            app:layout_constraintVertical_bias="0.571" />
+            app:layout_constraintVertical_bias="0.857" />
 
         <TextView
             android:id="@+id/textView8"
@@ -450,9 +453,10 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.068"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView8" />
+            app:layout_constraintTop_toBottomOf="@+id/textView8"
+            app:layout_constraintVertical_bias="1.0" />
 
         <TextView
             android:id="@+id/textView15"
@@ -466,6 +470,7 @@
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/textView16"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.387"
             app:layout_constraintStart_toEndOf="@+id/textView7"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -598,7 +603,7 @@
                 android:id="@+id/imageView9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_lock_lock"
+                android:src="@drawable/icon_4"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
