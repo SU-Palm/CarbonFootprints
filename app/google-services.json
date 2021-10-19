@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "12285164513",
+    "project_id": "carbonfootprints-cis400",
+    "storage_bucket": "carbonfootprints-cis400.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12285164513:android:69c7e38a3cb9ba8de2f0a0",
+        "android_client_info": {
+          "package_name": "com.example.carbonfootprints"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12285164513-dfs3g6f9pl7poqm6c0reqema8gnkpklj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.carbonfootprints",
+            "certificate_hash": "40315b86766971a4162bf1f1893f203da5aceecb"
+          }
+        },
+        {
+          "client_id": "12285164513-hc6ei7koe2k1tvqqfc2s4b4783krm5h9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5EWb9-5CrMQCO_iCfwHXp6sTgxp1H1g8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12285164513-hc6ei7koe2k1tvqqfc2s4b4783krm5h9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
