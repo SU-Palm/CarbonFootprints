@@ -7,4 +7,5 @@
     <string name="login_google">Returning user?</string>
     <string name="or_sign_up_if_you_are_new">Or sign up if you are new !</string>
     <string name="sign_up">Sign Up</string>
+    <string name="title_activity_maps">Maps</string>
 </resources>

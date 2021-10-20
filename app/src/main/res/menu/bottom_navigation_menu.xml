@@ -2,22 +2,22 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
         <item
-            android:id="@+id/page_2"
+            android:id="@+id/dashboard_button"
             android:enabled="true"
             android:icon="@drawable/icon_2"
             android:title="Dashboard"/>
         <item
-            android:id="@+id/page_1"
+            android:id="@+id/maps_button"
             android:enabled="true"
             android:icon="@drawable/icon_1"
             android:title="Maps"/>
         <item
-            android:id="@+id/page_4"
+            android:id="@+id/log_button"
             android:enabled="true"
             android:icon="@drawable/icon_5"
             android:title="Log"/>
         <item
-            android:id="@+id/page_3"
+            android:id="@+id/settings_button"
             android:enabled="true"
             android:icon="@drawable/icon_3"
             android:title="Settings"/>

@@ -2,6 +2,9 @@ package com.example.carbonfootprints;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,8 +21,8 @@ public class Dashboard extends AppCompatActivity {
         //Button signOutButton = findViewById(R.id.signOutButton);
         //mAuth = FirebaseAuth.getInstance();
         //signOutButton.setOnClickListener(v -> logOut());
-
     }
+
     private void logOut() {
         mAuth.signOut();
         Intent intent = new Intent(this, MainActivity.class);
