@@ -7,4 +7,9 @@
     <string name="login_google">Returning user?</string>
     <string name="or_sign_up_if_you_are_new">Or sign up if you are new !</string>
     <string name="sign_up">Sign Up</string>
+    <string name="title_activity_maps">Maps</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyB9KsEfpth6g0guiM2wMzdKh8xGFhPXATw</string>
+    <string name="pick_place">pick place</string>
+    <string name="default_info_title">default info title</string>
+    <string name="default_info_snippet">default info snippet</string>
 </resources>
