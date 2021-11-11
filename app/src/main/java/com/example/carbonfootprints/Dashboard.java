@@ -17,6 +17,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.w3c.dom.Text;
+
 public class Dashboard extends AppCompatActivity implements SensorEventListener {
     private FirebaseAuth mAuth;
 
@@ -29,8 +31,15 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
     // TextView to display current sensor values.
     private TextView mTextSensorAccelerometer;
 
+    //sensor, as retrieved from sensor manager.
+    private Sensor mSensorPedometer;
+
+    //TextView to display current pedometer value.
+    private TextView mTextSensorPedometer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         this.setContentView(R.layout.activity_dashboard);
         //Button signOutButton = findViewById(R.id.signOutButton);
@@ -40,15 +49,18 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
 
         // Initialize view variable.
         mTextSensorAccelerometer = (TextView) findViewById(R.id.label_accelerometer);
+        mTextSensorPedometer = (TextView)findViewById(R.id.label_pedometer);
 
         // Get an instance of the sensor manager.
         mSensorManager = (SensorManager) getSystemService(
                 Context.SENSOR_SERVICE);
 
+
         // Get accelerometer sensor from the sensor manager.
         // The getDefaultSensor() method returns null if the sensor
         // is not available on the device.
         mSensorAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorPedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         // Get the error message from string resources.
         String sensor_error = getResources().getString(R.string.error_no_sensor);
@@ -56,6 +68,7 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         // If mSensorAccelerometer is null, the sensor
         // is not available in the device.  Set the text to the error message
         if (mSensorAccelerometer == null) { mTextSensorAccelerometer.setText(sensor_error); }
+        if (mSensorPedometer == null) {mTextSensorPedometer.setText(sensor_error);}
     }
 
     @Override
@@ -69,6 +82,11 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         if (mSensorAccelerometer != null) {
             mSensorManager.registerListener(this, mSensorAccelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL);
+        }
+
+        if (mSensorPedometer != null) {
+           mSensorManager.registerListener(this, mSensorPedometer,
+                   SensorManager.SENSOR_DELAY_NORMAL);
         }
     }
 
@@ -90,6 +108,7 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         // reports one value at a time, which is always the first
         // element in the values array.
         float currentValue = sensorEvent.values[0];
+        float stepCount = 0;
 
         switch (sensorType) {
             case Sensor.TYPE_ACCELEROMETER:
@@ -97,6 +116,10 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
                 // string from the resources, with the placeholder filled in.
                 mTextSensorAccelerometer.setText(getResources().getString(
                         R.string.label_accelerometer, currentValue));
+                break;
+            case Sensor.TYPE_STEP_COUNTER:
+                mTextSensorPedometer.setText(getResources().getString(
+                        R.string.label_pedometer, currentValue));
                 break;
             default:
                 // do nothing

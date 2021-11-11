@@ -13,5 +13,6 @@
     <string name="default_info_title">default info title</string>
     <string name="default_info_snippet">default info snippet</string>
     <string name="label_accelerometer">Accelerometer: %1$.2f</string>
+    <string name="label_pedometer">Steps: %1.2f</string>
     <string name="error_no_sensor">No sensor</string>
 </resources>
