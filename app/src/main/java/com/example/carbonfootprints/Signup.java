@@ -12,11 +12,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.carbonfootprints.Models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public final class Signup extends AppCompatActivity {
@@ -48,6 +50,18 @@ public final class Signup extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            User userData = new User(email);
+
+                            FirebaseDatabase.getInstance().getReference("UserData")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userData).
+                                    addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            signUp();
+                                            finish();
+                                        }
+                                    });
+
                             signUp();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -60,7 +74,7 @@ public final class Signup extends AppCompatActivity {
     }
 
     private void signUp() {
-        Intent intent = new Intent(this, Dashboard.class);
+        Intent intent = new Intent(this, BaseActivity.class);
         this.startActivity(intent);
     }
 }

@@ -64,10 +64,10 @@ public class Login extends AppCompatActivity {
                 });
     }
     private void login() {
-        Intent intent = new Intent(this, Dashboard.class);
+        Intent intent = new Intent(this, BaseActivity.class);
         startActivity(intent);
-
     }
+
     private void resetScreen() {
         Intent intent = new Intent(this, ResetPassword.class);
         startActivity(intent);

@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:id="@+id/linearLayout"
-    android:background="@color/background_green">
+    android:background="@color/background_green" >
 
     <ImageView
         android:id="@+id/topLeftDots"

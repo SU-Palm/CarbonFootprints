@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.SettingsFragment"
+    android:theme="@style/Theme.LoginPage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:theme="@style/Theme.LoginPage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="409dp"
+            android:layout_height="729dp"
+            android:background="@color/background_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <Button
+                android:id="@+id/logoutButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_marginStart="117dp"
+                android:layout_marginTop="100dp"
+                android:layout_marginEnd="92dp"
+                android:background="@drawable/rounded_corner"
+                android:text="Logout"
+                app:layout_constraintBottom_toTopOf="@+id/changePassButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:rippleColor="@color/green_dark" />
+
+            <Button
+                android:id="@+id/changePassButton"
+                android:layout_width="200dp"
+                android:layout_height="80dp"
+                android:layout_marginTop="200dp"
+                android:layout_marginBottom="200dp"
+                android:background="@drawable/rounded_corner"
+                android:backgroundTint="@color/black"
+                android:text="Change Password"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.559"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="297dp"
+                android:layout_height="73dp"
+                android:layout_marginBottom="600dp"
+                android:text="Settings"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</FrameLayout>

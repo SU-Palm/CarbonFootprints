@@ -1,24 +1,22 @@
-package com.example.carbonfootprints;
+package com.example.carbonfootprints.Fragments;
 
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
-import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
 
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.example.carbonfootprints.Maps;
+import com.example.carbonfootprints.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,29 +25,17 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-import com.google.android.gms.maps.model.PolylineOptions;
-import com.google.android.gms.maps.model.RoundCap;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-
 import com.google.android.libraries.places.api.Places;
-import com.google.android.libraries.places.api.model.Place;
-import com.google.android.libraries.places.api.model.PlaceLikelihood;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest;
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
-import java.util.Arrays;
-import java.util.List;
-
 /**
- * An activity that displays a map showing the place at the device's current location.
+ * A simple {@link Fragment} subclass.
+ * Use the {@link MapsFragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
-public class Maps extends AppCompatActivity
-        implements OnMapReadyCallback {
+public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = Maps.class.getSimpleName();
     private GoogleMap map;
@@ -73,49 +59,71 @@ public class Maps extends AppCompatActivity
     // Keys for storing activity state.
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
+    View view;
+
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+    public MapsFragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment MapsFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static MapsFragment newInstance(String param1, String param2) {
+        MapsFragment fragment = new MapsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Retrieve location and camera position from saved instance state.
-        if (savedInstanceState != null) {
-            lastKnownLocation = savedInstanceState.getParcelable(KEY_LOCATION);
-            cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }
 
-        // Retrieve the content view that renders the map.
-        setContentView(R.layout.activity_maps);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_maps, container, false);
 
-        // Construct a PlacesClient
-        Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
-        placesClient = Places.createClient(this);
+        Places.initialize(view.getContext(), getString(R.string.google_maps_key));
+        placesClient = Places.createClient(view.getContext());
 
         // Construct a FusedLocationProviderClient.
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view.getContext());
 
-        // Build the map.
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+        return view;
     }
 
-    /**
-     * Saves the state of the map when the activity is paused.
-     */
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        if (map != null) {
-            outState.putParcelable(KEY_CAMERA_POSITION, map.getCameraPosition());
-            outState.putParcelable(KEY_LOCATION, lastKnownLocation);
-        }
-        super.onSaveInstanceState(outState);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        SupportMapFragment supportMapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        supportMapFragment.getMapAsync(this);
     }
 
-    /**
-     * Manipulates the map when it's available.
-     * This callback is triggered when the map is ready to be used.
-     */
     @Override
     public void onMapReady(GoogleMap map) {
         this.map = map;
@@ -130,18 +138,11 @@ public class Maps extends AppCompatActivity
         getDeviceLocation();
     }
 
-    /**
-     * Gets the current location of the device, and positions the map's camera.
-     */
     private void getDeviceLocation() {
-        /*
-         * Get the best and most recent location of the device, which may be null in rare
-         * cases when a location is not available.
-         */
         try {
             if (locationPermissionGranted) {
                 Task<Location> locationResult = fusedLocationProviderClient.getLastLocation();
-                locationResult.addOnCompleteListener(this, new OnCompleteListener<Location>() {
+                locationResult.addOnCompleteListener(getActivity(), new OnCompleteListener<Location>() {
                     @Override
                     public void onComplete(@NonNull Task<Location> task) {
                         if (task.isSuccessful()) {
@@ -167,29 +168,20 @@ public class Maps extends AppCompatActivity
         }
     }
 
-    /**
-     * Prompts the user for permission to use the device location.
-     */
+
     private void getLocationPermission() {
-        /*
-         * Request location permission, so that we can get the location of the
-         * device. The result of the permission request is handled by a callback,
-         * onRequestPermissionsResult.
-         */
-        if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
+        if (ContextCompat.checkSelfPermission(getActivity().getApplicationContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION)
                 == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true;
         } else {
-            ActivityCompat.requestPermissions(this,
+            ActivityCompat.requestPermissions(getActivity(),
                     new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
                     PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
         }
     }
 
-    /**
-     * Handles the result of the request for location permissions.
-     */
+
     @Override
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
@@ -208,9 +200,6 @@ public class Maps extends AppCompatActivity
         updateLocationUI();
     }
 
-    /**
-     * Updates the map's UI settings based on whether the user has granted location permission.
-     */
     private void updateLocationUI() {
         if (map == null) {
             return;

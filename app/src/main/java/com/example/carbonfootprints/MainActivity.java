@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
             skipToHome();
         }
     }
+
     private void setListeners() {
         Button loginButton = findViewById(R.id.loginButton);
         Button signUpButton = findViewById(R.id.signUpButton);
@@ -47,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Signup.class);
         this.startActivity(intent);
     }
+
     private void skipToHome() {
         Intent intent = new Intent(this, Dashboard.class);
         this.startActivity(intent);
