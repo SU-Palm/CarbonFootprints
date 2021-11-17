@@ -1,9 +1,12 @@
 package com.example.carbonfootprints;
 
 import android.content.Intent;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.hardware.SensorEventListener;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -53,4 +56,5 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, Dashboard.class);
         this.startActivity(intent);
     }
+
 }
