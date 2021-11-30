@@ -1,5 +1,7 @@
 package com.example.carbonfootprints.Fragments;
 
+import static android.hardware.Sensor.TYPE_ACCELEROMETER;
+
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -18,6 +20,8 @@ import android.widget.TextView;
 
 import com.example.carbonfootprints.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -66,6 +70,15 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     //TextView to display current pedometer value.
     private TextView mTextSensorPedometer;
 
+
+    //longs for database values pulled
+    private long accValue;
+    private long pedValue;
+
+    //floats for values to push to database
+    private float updatedAccVal;
+    private float updatedPedVal;
+
     public TextView mUserNameOne;
     public TextView mUserNameTwo;
     public TextView mUserNameThree;
@@ -76,6 +89,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
     public TextView milesSaved;
     public TextView lastTrip;
+
 
     public DashboardFragment() {
         // Required empty public constructor
@@ -123,7 +137,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         // Get accelerometer sensor from the sensor manager.
         // The getDefaultSensor() method returns null if the sensor
         // is not available on the device.
-        mSensorAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorAccelerometer = mSensorManager.getDefaultSensor(TYPE_ACCELEROMETER);
         mSensorPedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         // Get the error message from string resources.
@@ -200,6 +214,49 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                 }
             }
         });
+    }
+    private void getDatabaseVals() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uId = user.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference("UserData");
+        mDatabase.child(uId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("getDatabaseVals", String.valueOf(task.getResult().getValue()));
+                    Map<String, Object> user = (Map<String, Object>) task.getResult().getValue();
+                    pedValue = (long) user.get("distanceWalked");
+                    accValue = (long) user.get("distanceDrove");
+                }
+            }
+        });
+    }
+    private void updateDatabaseVals() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uId = user.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("UserData").child(uId);
+        mDatabase.child("distanceWalked").setValue( (long) updatedPedVal);
+        mDatabase.child("distanceDrove").setValue( (long) updatedAccVal).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("update acc succesful", uId);
+
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Log.d("update FAILED", "notOK");
+
+                    }
+                });
+
     }
 
     private void createTrips() {
@@ -282,6 +339,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         // can be unregistered in onPause().
         // Check to ensure sensor is available before registering listener.
         // listener is registered with a "normal" amount of delay
+        getDatabaseVals();
         if (mSensorAccelerometer != null) {
             mSensorManager.registerListener(this, mSensorAccelerometer,
                     SensorManager.SENSOR_DELAY_NORMAL);
@@ -299,21 +357,32 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         // Unregister sensor listener in this callback so they don't
         // continue to use resources when the app is paused.
         mSensorManager.unregisterListener(this);
+        updateDatabaseVals();
     }
 
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
         // The sensor type (as defined in the Sensor class).
         int sensorType = sensorEvent.sensor.getType();
-
+        long baseVal;
         // The new data value of the sensor. accelerometer sensor
         // reports one value at a time, which is always the first
         // element in the values array.
-        float currentValue = sensorEvent.values[0];
+        if (sensorType == TYPE_ACCELEROMETER) {
+            baseVal = accValue;
+            updatedAccVal = baseVal;
+
+        }
+        else {
+            baseVal = pedValue;
+            updatedPedVal = baseVal;
+
+        }
+        float currentValue = baseVal + sensorEvent.values[0];
         float stepCount = 0;
 
         switch (sensorType) {
-            case Sensor.TYPE_ACCELEROMETER:
+            case TYPE_ACCELEROMETER:
                 // Set the accelerometer sensor text view to the light sensor
                 // string from the resources, with the placeholder filled in.
                 mTextSensorAccelerometer.setText(getResources().getString(
