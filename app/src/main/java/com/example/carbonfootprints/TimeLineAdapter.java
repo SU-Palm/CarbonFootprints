@@ -14,12 +14,12 @@ import com.github.vipulasri.timelineview.TimelineView;
 
 import java.util.List;
 
-class TimeLineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class TimeLineAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private List<TimeLineModel> timeLineModelList;
     private Context context;
 
-    TimeLineAdapter(Context context, List<TimeLineModel> timeLineModelList) {
+    public TimeLineAdapter(Context context, List<TimeLineModel> timeLineModelList) {
         this.timeLineModelList = timeLineModelList;
         this.context = context;
     }

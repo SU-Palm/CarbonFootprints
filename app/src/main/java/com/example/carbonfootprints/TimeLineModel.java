@@ -1,15 +1,24 @@
 package com.example.carbonfootprints;
 
-class TimeLineModel {
+public class TimeLineModel {
     private String name;
     private String status;
     private String description;
+
+    public TimeLineModel() {
+    }
+
+    public TimeLineModel(String name, String status, String description) {
+        this.name = name;
+        this.status = status;
+        this.description = description;
+    }
 
     String getTime() {
         return time;
     }
 
-    void setTime(String time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
@@ -19,7 +28,7 @@ class TimeLineModel {
         return description;
     }
 
-    void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
@@ -27,7 +36,7 @@ class TimeLineModel {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -35,7 +44,7 @@ class TimeLineModel {
         return status;
     }
 
-    void setStatus(String status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
