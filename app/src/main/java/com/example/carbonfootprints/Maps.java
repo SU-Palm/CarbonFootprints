@@ -1,10 +1,15 @@
 package com.example.carbonfootprints;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.os.Bundle;
+
+import androidx.appcompat.widget.SearchView;
+import androidx.fragment.app.FragmentActivity;
 
 import android.util.Log;
 import android.view.Menu;
@@ -43,6 +48,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 
 import java.util.Arrays;
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -54,6 +60,7 @@ public class Maps extends AppCompatActivity
     private static final String TAG = Maps.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
+    SearchView searchView;
 
     // The entry point to the Places API.
     private PlacesClient placesClient;
@@ -74,6 +81,8 @@ public class Maps extends AppCompatActivity
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +96,9 @@ public class Maps extends AppCompatActivity
         // Retrieve the content view that renders the map.
         setContentView(R.layout.activity_maps);
 
+        // initializing our search view.
+        searchView = findViewById(R.id.idSearchView);
+
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
         placesClient = Places.createClient(this);
@@ -97,6 +109,7 @@ public class Maps extends AppCompatActivity
         // Build the map.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
+
         mapFragment.getMapAsync(this);
     }
 
@@ -128,6 +141,60 @@ public class Maps extends AppCompatActivity
 
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
+
+        // adding on query listener for our search view.
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // on below line we are getting the
+                // location name from search view.
+                String location = searchView.getQuery().toString();
+
+                // below line is to create a list of address
+                // where we will store the list of all address.
+                List<Address> addressList = null;
+
+                // checking if the entered location is null or not.
+                if (location != null || location.equals("")) {
+                    // on below line we are creating and initializing a geo coder.
+                    Geocoder geocoder = new Geocoder(Maps.this);
+                    try {
+                        // on below line we are getting location from the
+                        // location name and adding that location to address list.
+                        addressList = geocoder.getFromLocationName(location, 1);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    // on below line we are getting the location
+                    // from our list a first position.
+                    Address address = addressList.get(0);
+
+                    // on below line we are creating a variable for our location
+                    // where we will add our locations latitude and longitude.
+                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+                    // on below line we are adding marker to that position.
+                    map.addMarker(new MarkerOptions().position(latLng).title(location));
+
+                    // below line is to animate camera to that position.
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+
+                    //polyline between the current location and destination
+                    Polyline polyline1 = map.addPolyline(new PolylineOptions()
+                            .clickable(true)
+                            .add(
+                                    new LatLng(address.getLatitude(), address.getLongitude()),
+                                    new LatLng(lastKnownLocation.getLatitude(),
+                                            lastKnownLocation.getLongitude())));
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
     }
 
     /**
