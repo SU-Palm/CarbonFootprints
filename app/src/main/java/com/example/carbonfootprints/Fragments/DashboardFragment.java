@@ -2,6 +2,7 @@ package com.example.carbonfootprints.Fragments;
 
 import static android.hardware.Sensor.TYPE_ACCELEROMETER;
 
+import java.lang.Math;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -70,6 +71,8 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     //TextView to display current pedometer value.
     private TextView mTextSensorPedometer;
 
+    //TextView distances saved
+    private TextView mTextMilesSaved;
 
     //longs for database values pulled
     private long accValue;
@@ -78,6 +81,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     //floats for values to push to database
     private float updatedAccVal;
     private float updatedPedVal;
+    private double currentMiles;
 
     public TextView mUserNameOne;
     public TextView mUserNameTwo;
@@ -129,6 +133,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         view = inflater.inflate(R.layout.fragment_dashboard, container, false);
         mTextSensorAccelerometer = (TextView) view.findViewById(R.id.label_accelerometer);
         mTextSensorPedometer = (TextView) view.findViewById(R.id.label_pedometer);
+        mTextMilesSaved = (TextView) view.findViewById(R.id.distanceSavedText);
 
         // Get an instance of the sensor manager.
         mSensorManager = (SensorManager) getActivity().getSystemService(
@@ -170,7 +175,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     private void setLeaderboard() {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser user = mAuth.getCurrentUser();
-        String uId = user.getUid();
+        //String uId = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference("UserData");
         mDatabase.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
@@ -240,6 +245,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         FirebaseUser user = mAuth.getCurrentUser();
         String uId = user.getUid();
         mDatabase = FirebaseDatabase.getInstance().getReference().child("UserData").child(uId);
+        mDatabase.child("milesSaved").setValue( (long) currentMiles);
         mDatabase.child("distanceWalked").setValue( (long) updatedPedVal);
         mDatabase.child("distanceDrove").setValue( (long) updatedAccVal).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -379,6 +385,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
 
         }
         float currentValue = baseVal + sensorEvent.values[0];
+        currentMiles = Math.floor(currentValue/2000);
         float stepCount = 0;
 
         switch (sensorType) {
@@ -391,6 +398,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
             case Sensor.TYPE_STEP_COUNTER:
                 mTextSensorPedometer.setText(getResources().getString(
                         R.string.label_pedometer, currentValue));
+                mTextMilesSaved.setText("{currentMiles}");
                 break;
             default:
                 // do nothing
