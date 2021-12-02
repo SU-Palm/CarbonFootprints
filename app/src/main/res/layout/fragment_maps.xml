@@ -1,10 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<fragment
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:map="http://schemas.android.com/apk/res-auto"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.MapsFragment" />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.MapsFragment"
+    android:id="@+id/topParent">
+    <fragment
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:map="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".Fragments.MapsFragment" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp">
+
+        <fragment
+            android:id="@+id/autocomplete_fragment"
+            android:layout_marginTop="30dp"
+            android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="#FFFFFF"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="invisible">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="95dp"
+                    android:orientation="vertical"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="10dp"
+                    android:paddingTop="10dp">
+                    <TextView
+                        android:id="@+id/from"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:textColor="#B0B3BA"
+                        android:text="From"
+                        android:fontFamily="@font/quicksand_bold"/>
+                    <TextView
+                        android:id="@+id/homeAddy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18dp"
+                        android:fontFamily="@font/quicksand"
+                        android:textColor="@color/black"
+                        android:text="StoneBridge Gardens" />
+
+                    <TextView
+                        android:id="@+id/To"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12dp"
+                        android:fontFamily="@font/quicksand_bold"
+                        android:textColor="#B0B3BA"
+                        android:text="To"/>
+
+                    <TextView
+                        android:id="@+id/destinationAddy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/quicksand"
+                        android:textSize="18dp"
+                        android:textColor="@color/black"
+                        android:text="23 Richmond Street" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="300dp"
+                    android:layout_height="70dp"
+                    android:orientation="horizontal"
+                    android:paddingEnd="10dp"
+                    android:paddingStart="0dp"
+                    android:paddingTop="10dp"
+                    android:gravity="center">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingRight="0dp"
+                        android:paddingTop="1dp"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/est"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:textColor="@color/black"
+                            android:text="Estimated" />
+                        <TextView
+                            android:id="@+id/timeText"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="13dp"
+                            android:textColor="@color/black"
+                            android:text="Time" />
+
+                        <TextView
+                            android:id="@+id/time"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10dp"
+                            android:textColor="@color/black"
+                            android:text="5 Mins" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp">
+                        <TextView
+                            android:id="@+id/walking"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="8dp"
+                            android:textColor="#B0B3BA"
+                            android:text="WALKING" />
+
+                        <TextView
+                            android:id="@+id/walkingMiles"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10dp"
+                            android:textColor="@color/black"
+                            android:text="5 miles"
+                            android:layout_marginLeft="2dp"/>
+
+                        <TextView
+                            android:id="@+id/driving"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="8dp"
+                            android:layout_marginTop="2dp"
+                            android:textColor="#B0B3BA"
+                            android:text="DRIVING" />
+
+                        <TextView
+                            android:id="@+id/drivingMiles"
+                            android:fontFamily="@font/quicksand"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="10dp"
+                            android:textColor="@color/black"
+                            android:layout_marginLeft="2dp"
+                            android:text="3 miles" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp"
+                        android:paddingLeft="10dp">
+
+                        <TextView
+                            android:id="@+id/milesSaved"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:fontFamily="@font/quicksand"
+                            android:text="Save 3 Miles!"
+                            android:textColor="@color/black"
+                            android:textSize="15dp" />
+
+                        <Button
+                            android:id="@+id/saveIt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="10dp"
+                            android:text="Save It!"
+                            android:backgroundTint="@color/green_dark"
+                            android:theme="@style/button"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </RelativeLayout>
+
+</FrameLayout>
