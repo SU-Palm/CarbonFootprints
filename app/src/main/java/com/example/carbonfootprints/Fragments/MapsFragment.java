@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.carbonfootprints.BuildConfig;
 import com.example.carbonfootprints.Maps;
 import com.example.carbonfootprints.R;
 import com.google.android.gms.common.api.Status;
@@ -58,6 +59,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -102,7 +104,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     double drivingMilesNum;
     double walkingMilesNum;
 
-    String placesAutoCompleteApiKey = "AIzaSyB4xzE3Pc_NP7MaWsuyXvx85J-JX2kYVYw";
+    String placesAutoCompleteApiKey = BuildConfig.AUTO_COMPLETE_API_KEY;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -159,7 +161,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_maps, container, false);
 
-        Places.initialize(view.getContext(), getString(R.string.google_maps_key));
+        Places.initialize(view.getContext(), BuildConfig.MAPS_API_KEY);
         placesClient = Places.createClient(view.getContext());
 
         searchView = view.findViewById(R.id.idSearchView);

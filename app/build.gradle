@@ -5,6 +5,18 @@ plugins {
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
+def getAPIKey() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("MAPS_API_KEY");
+}
+
+def getOtherAPIKey() {
+    Properties properties = new Properties()
+    properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    return properties.getProperty("AUTO_COMPLETE_API_KEY");
+}
+
 android {
     compileSdk 31
 
@@ -16,6 +28,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        buildConfigField "String", "MAPS_API_KEY", "\""+getAPIKey()+"\""
+        buildConfigField "String", "AUTO_COMPLETE_API_KEY", "\""+getOtherAPIKey()+"\""
     }
 
     buildTypes {
