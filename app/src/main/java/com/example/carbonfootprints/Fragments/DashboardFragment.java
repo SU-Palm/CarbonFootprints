@@ -377,12 +377,10 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         if (sensorType == TYPE_ACCELEROMETER) {
             baseVal = accValue;
             updatedAccVal = baseVal;
-
         }
         else {
             baseVal = pedValue;
             updatedPedVal = baseVal;
-
         }
         float currentValue = baseVal + sensorEvent.values[0];
         currentMiles = Math.floor(currentValue/2000);
