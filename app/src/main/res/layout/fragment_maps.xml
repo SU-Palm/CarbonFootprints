@@ -32,83 +32,93 @@
             android:id="@+id/cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            app:cardBackgroundColor="#FFFFFF"
-            android:layout_marginEnd="60dp"
+            android:layout_above="@+id/cardView2"
             android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginBottom="5dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:cardCornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:visibility="invisible">
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:paddingEnd="10dp">
 
+                <TextView
+                    android:id="@+id/from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="From"
+                    android:textColor="#B0B3BA"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/homeAddy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand"
+                    android:text="StoneBridge Gardens"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+
+                <TextView
+                    android:id="@+id/To"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="To"
+                    android:textColor="#B0B3BA"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:id="@+id/destinationAddy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/quicksand"
+                    android:text="23 Richmond Street"
+                    android:textColor="@color/black"
+                    android:textSize="18dp" />
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:cardBackgroundColor="#FFFFFF"
+            android:layout_marginEnd="60dp"
+            android:layout_marginStart="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:cardCornerRadius="15dp"
+            android:visibility="invisible">
                 <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="95dp"
-                    android:orientation="vertical"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="10dp"
-                    android:paddingTop="10dp">
-                    <TextView
-                        android:id="@+id/from"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:textColor="#B0B3BA"
-                        android:text="From"
-                        android:fontFamily="@font/quicksand_bold"/>
-                    <TextView
-                        android:id="@+id/homeAddy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="18dp"
-                        android:fontFamily="@font/quicksand"
-                        android:textColor="@color/black"
-                        android:text="StoneBridge Gardens" />
-
-                    <TextView
-                        android:id="@+id/To"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="12dp"
-                        android:fontFamily="@font/quicksand_bold"
-                        android:textColor="#B0B3BA"
-                        android:text="To"/>
-
-                    <TextView
-                        android:id="@+id/destinationAddy"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/quicksand"
-                        android:textSize="18dp"
-                        android:textColor="@color/black"
-                        android:text="23 Richmond Street" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="300dp"
-                    android:layout_height="70dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:paddingEnd="10dp"
-                    android:paddingStart="0dp"
                     android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
                     android:gravity="center">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingRight="0dp"
-                        android:paddingTop="1dp"
                         android:gravity="center">
                         <TextView
                             android:id="@+id/est"
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="13dp"
+                            android:textSize="15dp"
                             android:textColor="@color/black"
                             android:text="Estimated" />
                         <TextView
@@ -116,7 +126,7 @@
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="13dp"
+                            android:textSize="15dp"
                             android:textColor="@color/black"
                             android:text="Time" />
 
@@ -125,9 +135,9 @@
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="10dp"
+                            android:textSize="15dp"
                             android:textColor="@color/black"
-                            android:text="5 Mins" />
+                            android:text="2 Mins" />
 
                     </LinearLayout>
 
@@ -135,14 +145,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp">
+                        android:layout_marginStart="15dp">
                         <TextView
                             android:id="@+id/walking"
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="8dp"
+                            android:textSize="10dp"
                             android:textColor="#B0B3BA"
                             android:text="WALKING" />
 
@@ -151,7 +160,7 @@
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="10dp"
+                            android:textSize="12dp"
                             android:textColor="@color/black"
                             android:text="5 miles"
                             android:layout_marginLeft="2dp"/>
@@ -161,7 +170,7 @@
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="8dp"
+                            android:textSize="10dp"
                             android:layout_marginTop="2dp"
                             android:textColor="#B0B3BA"
                             android:text="DRIVING" />
@@ -171,48 +180,39 @@
                             android:fontFamily="@font/quicksand"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="10dp"
+                            android:textSize="12dp"
                             android:textColor="@color/black"
                             android:layout_marginLeft="2dp"
                             android:text="3 miles" />
-
-
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
-                        android:paddingRight="10dp"
-                        android:paddingLeft="10dp">
-
+                        android:layout_marginStart="15dp"
+                        android:gravity="center">
                         <TextView
                             android:id="@+id/milesSaved"
-                            android:layout_width="wrap_content"
+                            android:layout_width="90dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="12dp"
+                            android:layout_marginEnd="5dp"
                             android:fontFamily="@font/quicksand"
-                            android:text="Save 3 Miles!"
+                            android:text="Save 30 Miles!"
                             android:textColor="@color/black"
-                            android:textSize="15dp" />
+                            android:textSize="13dp" />
 
                         <Button
                             android:id="@+id/saveIt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
                             android:text="Save It!"
                             android:backgroundTint="@color/green_dark"
                             android:theme="@style/button"
                             />
                     </LinearLayout>
-
                 </LinearLayout>
-
-            </LinearLayout>
-
         </androidx.cardview.widget.CardView>
-
     </RelativeLayout>
 
 </FrameLayout>

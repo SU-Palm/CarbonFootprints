@@ -68,7 +68,6 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
-
     private static final String TAG = Maps.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
@@ -93,9 +92,11 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
     private static final String KEY_CAMERA_POSITION = "camera_position";
     private static final String KEY_LOCATION = "location";
     CardView cardView;
+    CardView cardView2;
     View view;
     Button saveIt;
     TextView timeText;
+    TextView time;
     TextView walkingMiles;
     TextView drivingMiles;
     TextView milesSaved;
@@ -171,12 +172,14 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
 
         saveIt = view.findViewById(R.id.saveIt);
         timeText = view.findViewById(R.id.timeText);
+        time = view.findViewById(R.id.time);
         walkingMiles = view.findViewById(R.id.walkingMiles);
         drivingMiles = view.findViewById(R.id.drivingMiles);
         milesSaved = view.findViewById(R.id.milesSaved);
         homeAddy = view.findViewById(R.id.homeAddy);
         destinationAddy = view.findViewById(R.id.destinationAddy);
         cardView = view.findViewById(R.id.cardView);
+        cardView2 = view.findViewById(R.id.cardView2);
         return view;
     }
 
@@ -211,6 +214,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
                 // TODO: Get info about the selected place.
                 Log.i(TAG, "Place: " + place.getName() + ", " + place.getId() + ", " + place.getLatLng());
                 cardView.setVisibility(View.VISIBLE);
+                cardView2.setVisibility(View.VISIBLE);
                 homeAddy.setText("Syracuse, NY");
                 destinationAddy.setText(place.getName());
                 DateTime now = new DateTime();
@@ -295,7 +299,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             drivingMilesNum = Math.round(drivingMilesNum*100.0)/100.0;
         } else {
             walkingMiles.setText(results.routes[i].legs[0].distance.humanReadable);
-            timeText.setText(results.routes[i].legs[0].duration.humanReadable.substring(6));
+            time.setText(results.routes[i].legs[0].duration.humanReadable);
             walkingMilesNum = (results.routes[i].legs[0].distance.inMeters/1609.344);
             walkingMilesNum = Math.round(walkingMilesNum*100.0)/100.0;
             milesSaved.setText("Save ".concat(String.valueOf(drivingMilesNum)).concat(" Miles!"));
