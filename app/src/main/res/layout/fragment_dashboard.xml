@@ -143,7 +143,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="50dp"
                 android:fontFamily="@font/quicksand"
-                android:text="TOTAL DISTANCE WALKED"
+                android:text="TOTAL STEPS TAKEN"
                 android:textAlignment="center"
                 android:textColor="#918F8F"
                 android:textSize="10sp"
@@ -206,7 +206,7 @@
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
-                android:id="@+id/textView12"
+                android:id="@+id/distanceSavedText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
