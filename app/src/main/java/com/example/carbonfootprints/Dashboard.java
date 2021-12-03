@@ -59,7 +59,6 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         // Get accelerometer sensor from the sensor manager.
         // The getDefaultSensor() method returns null if the sensor
         // is not available on the device.
-        mSensorAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorPedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
 
         // Get the error message from string resources.
@@ -79,10 +78,6 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         // can be unregistered in onPause().
         // Check to ensure sensor is available before registering listener.
         // listener is registered with a "normal" amount of delay
-        if (mSensorAccelerometer != null) {
-            mSensorManager.registerListener(this, mSensorAccelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
 
         if (mSensorPedometer != null) {
            mSensorManager.registerListener(this, mSensorPedometer,
@@ -111,12 +106,6 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         float stepCount = 0;
 
         switch (sensorType) {
-            case Sensor.TYPE_ACCELEROMETER:
-                // Set the accelerometer sensor text view to the light sensor
-                // string from the resources, with the placeholder filled in.
-                mTextSensorAccelerometer.setText(getResources().getString(
-                        R.string.label_accelerometer, currentValue));
-                break;
             case Sensor.TYPE_STEP_COUNTER:
                 mTextSensorPedometer.setText(getResources().getString(
                         R.string.label_pedometer, currentValue));

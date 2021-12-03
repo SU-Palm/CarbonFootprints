@@ -1,6 +1,7 @@
 package com.example.carbonfootprints.Fragments;
 
 import static android.hardware.Sensor.TYPE_ACCELEROMETER;
+import static android.hardware.Sensor.TYPE_STEP_COUNTER;
 
 import java.lang.Math;
 import android.content.Context;
@@ -143,7 +144,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         // The getDefaultSensor() method returns null if the sensor
         // is not available on the device.
         mSensorAccelerometer = mSensorManager.getDefaultSensor(TYPE_ACCELEROMETER);
-        mSensorPedometer = mSensorManager.getDefaultSensor(Sensor.TYPE_STEP_COUNTER);
+        mSensorPedometer = mSensorManager.getDefaultSensor(TYPE_STEP_COUNTER);
 
         // Get the error message from string resources.
         String sensor_error = getResources().getString(R.string.error_no_sensor);
@@ -216,6 +217,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     Map<String, Object> user = (Map<String, Object>) task.getResult().getValue();
                     milesSaved.setText(user.get("milesSaved").toString());
                     lastTrip.setText(user.get("lastTrip").toString());
+                    mTextSensorAccelerometer.setText(user.get("distanceDrove").toString());
                 }
             }
         });
@@ -346,11 +348,6 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
         // Check to ensure sensor is available before registering listener.
         // listener is registered with a "normal" amount of delay
         getDatabaseVals();
-        if (mSensorAccelerometer != null) {
-            mSensorManager.registerListener(this, mSensorAccelerometer,
-                    SensorManager.SENSOR_DELAY_NORMAL);
-        }
-
         if (mSensorPedometer != null) {
             mSensorManager.registerListener(this, mSensorPedometer,
                     SensorManager.SENSOR_DELAY_NORMAL);
@@ -370,30 +367,21 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         // The sensor type (as defined in the Sensor class).
         int sensorType = sensorEvent.sensor.getType();
-        long baseVal;
+        long baseVal = 0;
         // The new data value of the sensor. accelerometer sensor
         // reports one value at a time, which is always the first
         // element in the values array.
-        if (sensorType == TYPE_ACCELEROMETER) {
-            baseVal = accValue;
-            updatedAccVal = baseVal;
-        }
-        else {
+        if (sensorType == TYPE_STEP_COUNTER) {
             baseVal = pedValue;
             updatedPedVal = baseVal;
         }
+
         float currentValue = baseVal + sensorEvent.values[0];
         currentMiles = Math.floor(currentValue/2000);
         float stepCount = 0;
 
         switch (sensorType) {
-            case TYPE_ACCELEROMETER:
-                // Set the accelerometer sensor text view to the light sensor
-                // string from the resources, with the placeholder filled in.
-                mTextSensorAccelerometer.setText(getResources().getString(
-                        R.string.label_accelerometer, currentValue));
-                break;
-            case Sensor.TYPE_STEP_COUNTER:
+            case TYPE_STEP_COUNTER:
                 mTextSensorPedometer.setText(getResources().getString(
                         R.string.label_pedometer, currentValue));
                 mTextMilesSaved.setText("{currentMiles}");
