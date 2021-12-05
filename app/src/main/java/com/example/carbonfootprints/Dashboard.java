@@ -68,6 +68,12 @@ public class Dashboard extends AppCompatActivity implements SensorEventListener 
         // is not available in the device.  Set the text to the error message
         if (mSensorAccelerometer == null) { mTextSensorAccelerometer.setText(sensor_error); }
         if (mSensorPedometer == null) {mTextSensorPedometer.setText(sensor_error);}
+        //pull accelerometer and pedometer data
+
+
+        //push updates to database for leaderboard
+
+        //pull updates from database for leaderboard
     }
 
     @Override

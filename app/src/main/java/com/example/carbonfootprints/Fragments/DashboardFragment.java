@@ -78,6 +78,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     //longs for database values pulled
     private long accValue;
     private long pedValue;
+    private long lastTripValue;
 
     //floats for values to push to database
     private float updatedAccVal;
@@ -217,6 +218,7 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     Map<String, Object> user = (Map<String, Object>) task.getResult().getValue();
                     milesSaved.setText(user.get("milesSaved").toString());
                     lastTrip.setText(user.get("lastTrip").toString());
+                    mTextSensorPedometer.setText(user.get("distanceWalked").toString());
                     mTextSensorAccelerometer.setText(user.get("distanceDrove").toString());
                 }
             }
@@ -238,6 +240,10 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
                     Map<String, Object> user = (Map<String, Object>) task.getResult().getValue();
                     pedValue = (long) user.get("distanceWalked");
                     accValue = (long) user.get("distanceDrove");
+                    lastTripValue = (long) user.get("lastTrip");
+                    updatedPedVal = pedValue;
+                    updatedAccVal = accValue;
+                    currentMiles = Math.floor(pedValue/2000);
                 }
             }
         });
@@ -367,28 +373,24 @@ public class DashboardFragment extends Fragment implements SensorEventListener {
     public void onSensorChanged(SensorEvent sensorEvent) {
         // The sensor type (as defined in the Sensor class).
         int sensorType = sensorEvent.sensor.getType();
-        long baseVal = 0;
         // The new data value of the sensor. accelerometer sensor
         // reports one value at a time, which is always the first
         // element in the values array.
-        if (sensorType == TYPE_STEP_COUNTER) {
-            baseVal = pedValue;
-            updatedPedVal = baseVal;
-        }
-
-        float currentValue = baseVal + sensorEvent.values[0];
-        currentMiles = Math.floor(currentValue/2000);
-        float stepCount = 0;
-
-        switch (sensorType) {
+        switch (sensorType){
             case TYPE_STEP_COUNTER:
+                float currentValue = pedValue + sensorEvent.values[0];
+                System.out.println("FIONAAAA");
+                System.out.println(currentValue);
+                updatedPedVal = currentValue;
+                currentMiles = Math.floor(currentValue/2000);
                 mTextSensorPedometer.setText(getResources().getString(
                         R.string.label_pedometer, currentValue));
                 mTextMilesSaved.setText("{currentMiles}");
                 break;
             default:
-                // do nothing
+                break;
         }
+
     }
 
     @Override

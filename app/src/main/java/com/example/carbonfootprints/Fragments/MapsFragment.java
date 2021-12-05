@@ -38,12 +38,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.Place;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment;
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.maps.DirectionsApi;
 import com.google.maps.DirectionsApiRequest;
 import com.google.maps.GeoApiContext;
@@ -59,6 +66,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -68,6 +76,9 @@ import java.util.concurrent.TimeUnit;
  * create an instance of this fragment.
  */
 public class MapsFragment extends Fragment implements OnMapReadyCallback {
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+    private long milesDrivenVal;
     private static final String TAG = Maps.class.getSimpleName();
     private GoogleMap map;
     private CameraPosition cameraPosition;
@@ -145,6 +156,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getDatabaseVals();
     }
 
     @Override
@@ -304,8 +316,50 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback {
             walkingMilesNum = Math.round(walkingMilesNum*100.0)/100.0;
             milesSaved.setText("Save ".concat(String.valueOf(drivingMilesNum)).concat(" Miles!"));
         }
+        updateDatabaseVals();
     }
+    private void getDatabaseVals() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uId = user.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference("UserData");
+        mDatabase.child(uId).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("getDatabaseVals", String.valueOf(task.getResult().getValue()));
+                    Map<String, Object> user = (Map<String, Object>) task.getResult().getValue();
+                    milesDrivenVal = (long) user.get("distanceDrove");
+                }
+            }
+        });
+    }
+    private void updateDatabaseVals() {
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
+        String uId = user.getUid();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("UserData").child(uId);
+        mDatabase.child("lastTrip").setValue( (long) drivingMilesNum);
+        mDatabase.child("distanceDrove").setValue( milesDrivenVal + (long) drivingMilesNum).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d("update acc succesful", uId);
 
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // Write failed
+                        Log.d("update FAILED", "notOK");
+
+                    }
+                });
+
+    }
     private GeoApiContext createGeoApiContext() {
         GeoApiContext geoApiContext = new GeoApiContext();
         return geoApiContext.setQueryRateLimit(5)
